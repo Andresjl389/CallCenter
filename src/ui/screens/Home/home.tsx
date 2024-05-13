@@ -1,6 +1,10 @@
-import { Button, IconButton } from "@mui/material";
+import { Button, IconButton, TableCell, TableRow } from "@mui/material";
 import { useState } from "react";
-import { HeaderComponent, SideBarComponent } from "../../components";
+import {
+  HeaderComponent,
+  SideBarComponent,
+  TableComponent,
+} from "../../components";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useGetTransaccionModel } from "../../../domain/models";
 import { TransaccionesType } from "../../../domain/interfaces";
@@ -30,17 +34,28 @@ const HomeScreen = () => {
         toggleSidebar={toggleSidebar}
         sidebarCollapsed={sidebarCollapsed}
       />
-      <div style={{ display: "flex", marginLeft: handleStyle() }}>
-        {transacciones?.map((item) => (
-          <>
-            <div style={{ display: "flex", flexDirection: "row"}}>
-              <p>fecha: {item.fecha} </p>
-              <p>monto: {item.monto} </p>
-              <p>cliente: {item.id_cliente} </p>
-              <p>cliente: {item.tipo_transaccion} </p>
-            </div>
-          </>
-        ))}
+      <div
+        style={{
+          display: "flex",
+          marginLeft: handleStyle(),
+          flexDirection: "column",
+        }}
+      >
+        <TableComponent>
+          {transacciones?.map((item) => (
+            <>
+              <TableRow>
+                <TableCell component="th" scope="row">
+                  {item.id_transaccion}
+                </TableCell>
+                <TableCell>{item.fecha}</TableCell>
+                <TableCell>{item.monto}</TableCell>
+                <TableCell>{item.tipo_transaccion}</TableCell>
+                <TableCell>{item.id_cliente}</TableCell>
+              </TableRow>
+            </>
+          ))}
+        </TableComponent>
         <Button variant="outlined" onClick={handleTransacciones}>
           INFO
         </Button>
