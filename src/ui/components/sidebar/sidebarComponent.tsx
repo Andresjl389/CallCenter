@@ -19,7 +19,7 @@ type Props = {
 const SideBarComponent = ({ collapsed }: Props) => {
   return (
     <Container>
-      <ItemComponent to="/Home">
+      <ItemComponent to="/">
         <HomeIcon sx={{ fontSize: 25 }} />
         <ListItemText primary="Home" />
       </ItemComponent>

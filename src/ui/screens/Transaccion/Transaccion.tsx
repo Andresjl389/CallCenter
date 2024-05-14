@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { HeaderComponent, FormInputComponent } from "../../components";
+import { useInformeModel } from "../../../domain/models/Informe";
+import { Button } from "@mui/material";
 
 const Transaccion = () => {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
@@ -19,6 +21,22 @@ const Transaccion = () => {
 
   const handleStyle = () => {
     return sidebarCollapsed ? "220px" : "80px";
+  };
+
+  const { crearInforme } = useInformeModel();
+
+  const createinforme = async () => {
+    const data = {
+      id_informe: idTransaccion,
+      nombre_informe: tipoTransaccion,
+      fecha: fecha,
+      tipo_informe: tipoTransaccion,
+      detalle_informe: tipoTransaccion,
+      nombre_responsable: tipoTransaccion,
+      id_transaccion_financiera: idCliente,
+    };
+    console.log(data);
+    await crearInforme(data);
   };
 
   return (
@@ -91,6 +109,7 @@ const Transaccion = () => {
             onChange={(event) => setIdInforme(event.target.value)}
             value={idInforme}
           />
+          <Button variant="contained" style={{gridColumn:'1/-1', width:'50%', margin:'auto'}} onClick={createinforme}>Enviar</Button>
         </Container>
       </div>
     </>

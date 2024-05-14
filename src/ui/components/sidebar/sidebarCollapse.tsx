@@ -19,10 +19,10 @@ const SideCollapseComponent = ({}: Props) => {
   return (
     <Collapse in={true} timeout={500}>
       <Container>
-        <ItemComponent to="/Home">
+        <ItemComponent to="/">
           <HomeIcon sx={{ fontSize: 25 }} />
         </ItemComponent>
-        <ItemComponent to="">
+        <ItemComponent to="/Transaccion">
           <PointOfSaleIcon sx={{ fontSize: 25 }} />
         </ItemComponent>
         <ItemComponent to="">
