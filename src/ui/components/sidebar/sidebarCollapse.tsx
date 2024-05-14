@@ -1,6 +1,7 @@
 import { Collapse } from "@mui/material";
 import PointOfSaleIcon from "@mui/icons-material/PointOfSale";
 import PersonIcon from "@mui/icons-material/Person";
+import HomeIcon from "@mui/icons-material/Home";
 import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 import PaymentIcon from "@mui/icons-material/Payment";
 import TextSnippetIcon from "@mui/icons-material/TextSnippet";
@@ -11,35 +12,38 @@ import styled from "styled-components";
 import { ItemComponent } from "./components";
 
 type Props = {
-    collapsed?: boolean;
-}
+  collapsed?: boolean;
+};
 
-const SideCollapseComponent = ({ }:Props) => {
+const SideCollapseComponent = ({}: Props) => {
   return (
     <Collapse in={true} timeout={500}>
       <Container>
-        <ItemComponent>
+        <ItemComponent to="/Home">
+          <HomeIcon sx={{ fontSize: 25 }} />
+        </ItemComponent>
+        <ItemComponent to="">
           <PointOfSaleIcon sx={{ fontSize: 25 }} />
         </ItemComponent>
-        <ItemComponent>
+        <ItemComponent to="">
           <PersonIcon sx={{ fontSize: 25 }} />
         </ItemComponent>
-        <ItemComponent>
+        <ItemComponent to="">
           <AccountBalanceWalletIcon sx={{ fontSize: 25 }} />
         </ItemComponent>
-        <ItemComponent>
+        <ItemComponent to="">
           <PaymentIcon sx={{ fontSize: 25 }} />
         </ItemComponent>
-        <ItemComponent>
+        <ItemComponent to="">
           <TextSnippetIcon sx={{ fontSize: 25 }} />
         </ItemComponent>
-        <ItemComponent>
+        <ItemComponent to="">
           <AttachMoneyIcon sx={{ fontSize: 25 }} />
         </ItemComponent>
-        <ItemComponent>
+        <ItemComponent to="">
           <HailIcon sx={{ fontSize: 25 }} />
         </ItemComponent>
-        <ItemComponent>
+        <ItemComponent to="">
           <ReceiptLongIcon sx={{ fontSize: 25 }} />
         </ItemComponent>
       </Container>
