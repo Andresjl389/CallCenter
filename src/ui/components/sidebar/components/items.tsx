@@ -5,7 +5,7 @@ const ItemComponent = ({
   children,
   to,
 }: {
-  children: React.ReactNode;
+  children?: any;
   to: string;
 }) => {
   return (
