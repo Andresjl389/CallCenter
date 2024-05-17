@@ -9,8 +9,8 @@ const PutInforme = async (id_informe: bigint, data: {}) => {
       data,
       { headers }
     );
-    console.log(response.data.informe);
-    return response.data.informe;
+    console.log(response);
+    return response;
   } catch (error) {
     console.log("Error desde el service: ", error);
   }

@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { HomeScreen, TransactionScreen } from "../../ui/screens";
+import { AñadirInformeScreen, HomeScreen, InformeScreen, TransaccionActivoFijoScreen, TransactionScreen } from "../../ui/screens";
 
 const AppRouter: React.FC = () => {
   return (
@@ -8,6 +8,9 @@ const AppRouter: React.FC = () => {
       <Routes>
         <Route path="/" element={<HomeScreen />} />
         <Route path="/Transaccion" element={<TransactionScreen />} />
+        <Route path="/TransaccionActivoFijo" element={<TransaccionActivoFijoScreen />} />
+        <Route path="/Informe" element={<InformeScreen />} />
+        <Route path="/Informe/añadir" element={<AñadirInformeScreen />} />
       </Routes>
     </Router>
   );

@@ -25,7 +25,7 @@ const SideCollapseComponent = ({}: Props) => {
         <ItemComponent to="/Transaccion">
           <PointOfSaleIcon sx={{ fontSize: 25 }} />
         </ItemComponent>
-        <ItemComponent to="">
+        <ItemComponent to="/">
           <PersonIcon sx={{ fontSize: 25 }} />
         </ItemComponent>
         <ItemComponent to="">
@@ -34,7 +34,7 @@ const SideCollapseComponent = ({}: Props) => {
         <ItemComponent to="">
           <PaymentIcon sx={{ fontSize: 25 }} />
         </ItemComponent>
-        <ItemComponent to="">
+        <ItemComponent to="/Informe">
           <TextSnippetIcon sx={{ fontSize: 25 }} />
         </ItemComponent>
         <ItemComponent to="">
@@ -43,7 +43,7 @@ const SideCollapseComponent = ({}: Props) => {
         <ItemComponent to="">
           <HailIcon sx={{ fontSize: 25 }} />
         </ItemComponent>
-        <ItemComponent to="">
+        <ItemComponent to="/TransaccionActivoFijo">
           <ReceiptLongIcon sx={{ fontSize: 25 }} />
         </ItemComponent>
       </Container>

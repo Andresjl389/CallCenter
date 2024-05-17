@@ -39,7 +39,7 @@ const SideBarComponent = ({ collapsed }: Props) => {
         <PaymentIcon sx={{ fontSize: 25 }} />
         <ListItemText primary="Cuenta por pagar" />
       </ItemComponent>
-      <ItemComponent to="">
+      <ItemComponent to="/Informe">
         <TextSnippetIcon sx={{ fontSize: 25 }} />
         <ListItemText primary="Informe" />
       </ItemComponent>
@@ -51,7 +51,7 @@ const SideBarComponent = ({ collapsed }: Props) => {
         <HailIcon sx={{ fontSize: 25 }} />
         <ListItemText primary="Proveedor" />
       </ItemComponent>
-      <ItemComponent to="">
+      <ItemComponent to="/TransaccionActivoFijo">
         <ReceiptLongIcon sx={{ fontSize: 25 }} />
         <ListItemText primary="Transaccion activo fijo" />
       </ItemComponent>

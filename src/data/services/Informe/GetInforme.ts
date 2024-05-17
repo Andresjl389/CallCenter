@@ -6,9 +6,9 @@ const GetInforme = async() => {
         const headers = { "content-type": "application/json" };
         const response = await axios.get(`${Efetch.BACK_URL}/informe/obtener`, {
             headers,
-        });
-        console.log(response.data.informes);
-        return response.data.informes;
+          });
+        console.log(response.data.informe);
+        return response.data.informe;
     } catch (error) {
         console.log("Error desde el service: ", error);
     }
