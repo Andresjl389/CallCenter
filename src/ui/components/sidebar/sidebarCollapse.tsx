@@ -22,7 +22,7 @@ const SideCollapseComponent = ({}: Props) => {
         <ItemComponent to="/Home">
           <HomeIcon sx={{ fontSize: 25 }} />
         </ItemComponent>
-        <ItemComponent to="">
+        <ItemComponent to="/Transaccion">
           <PointOfSaleIcon sx={{ fontSize: 25 }} />
         </ItemComponent>
         <ItemComponent to="">
