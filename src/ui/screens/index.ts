@@ -1,3 +1,5 @@
 export * from './Home'
 export * from './Transaccion'
 export * from './Informe'
+export * from './Cliente'
+export * from './CuentasPorCobrar'

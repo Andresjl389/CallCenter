@@ -1,4 +1,5 @@
 import { Collapse } from "@mui/material";
+import Tooltip from "@mui/material/Tooltip";
 import PointOfSaleIcon from "@mui/icons-material/PointOfSale";
 import PersonIcon from "@mui/icons-material/Person";
 import HomeIcon from "@mui/icons-material/Home";
@@ -20,31 +21,57 @@ const SideCollapseComponent = ({}: Props) => {
     <Collapse in={true} timeout={500}>
       <Container>
         <ItemComponent to="/">
-          <HomeIcon sx={{ fontSize: 25 }} />
+          <Tooltip title="Home" placement="right" arrow>
+            <HomeIcon sx={{ fontSize: 25 }} />
+          </Tooltip>
         </ItemComponent>
+
         <ItemComponent to="/Transaccion">
-          <PointOfSaleIcon sx={{ fontSize: 25 }} />
+          <Tooltip title="Transaccion" placement="right" arrow>
+            <PointOfSaleIcon sx={{ fontSize: 25 }} />
+          </Tooltip>
         </ItemComponent>
-        <ItemComponent to="/">
-          <PersonIcon sx={{ fontSize: 25 }} />
+
+        <ItemComponent to="/Cliente">
+          <Tooltip title="Cliente" placement="right" arrow>
+            <PersonIcon sx={{ fontSize: 25 }} />
+          </Tooltip>
         </ItemComponent>
-        <ItemComponent to="">
-          <AccountBalanceWalletIcon sx={{ fontSize: 25 }} />
+
+        <ItemComponent to="/CuentasPorCobrar">
+          <Tooltip title="Cuenta por Cobrar" placement="right" arrow>
+            <AccountBalanceWalletIcon sx={{ fontSize: 25 }} />
+          </Tooltip>
         </ItemComponent>
-        <ItemComponent to="">
-          <PaymentIcon sx={{ fontSize: 25 }} />
+
+        <ItemComponent to="/CuentasPorPagar">
+          <Tooltip title="Cuenta por Pagar" placement="right" arrow>
+            <PaymentIcon sx={{ fontSize: 25 }} />
+          </Tooltip>
         </ItemComponent>
+
         <ItemComponent to="/Informe">
-          <TextSnippetIcon sx={{ fontSize: 25 }} />
+          <Tooltip title="Informe" placement="right" arrow>
+            <TextSnippetIcon sx={{ fontSize: 25 }} />
+          </Tooltip>
         </ItemComponent>
+
         <ItemComponent to="">
-          <AttachMoneyIcon sx={{ fontSize: 25 }} />
+          <Tooltip title="Presupuesto" placement="right" arrow>
+            <AttachMoneyIcon sx={{ fontSize: 25 }} />
+          </Tooltip>
         </ItemComponent>
+
         <ItemComponent to="">
-          <HailIcon sx={{ fontSize: 25 }} />
+          <Tooltip title="Proveedor" placement="right" arrow>
+            <HailIcon sx={{ fontSize: 25 }} />
+          </Tooltip>
         </ItemComponent>
+
         <ItemComponent to="/TransaccionActivoFijo">
-          <ReceiptLongIcon sx={{ fontSize: 25 }} />
+          <Tooltip title="Transaccion Activo Fijo" placement="right" arrow>
+            <ReceiptLongIcon sx={{ fontSize: 25 }} />
+          </Tooltip>
         </ItemComponent>
       </Container>
     </Collapse>
