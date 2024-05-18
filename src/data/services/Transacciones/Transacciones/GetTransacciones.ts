@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Efetch } from "../../../domain/interfaces";
+import { Efetch } from "../../../../domain/interfaces"; 
 
 const GetTransaccion = async () => {
   try {

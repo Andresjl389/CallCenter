@@ -1,1 +1,2 @@
-export * from './GetTransacciones'
+export * from './Transaccion'
+export * from './TransaccionActivoFijo'

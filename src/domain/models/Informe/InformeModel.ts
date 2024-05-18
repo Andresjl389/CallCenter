@@ -2,32 +2,56 @@ import {
   GetInforme,
   PostInforme,
   PutInforme,
-} from "../../../data/services/Informe";
+  DeleteInforme,
+} from "../../../data/services";
 
 const useInformeModel = () => {
 
     const obtenerInformes = async () => {
-        const data = await GetInforme();
-        console.log("Datos desde el model: ", data);
-        return data;
+        try{
+            const data = await GetInforme();
+            console.log("Datos desde el model: ", data);
+            return data;
+        }catch(error){
+            console.log("Error desde el model: ", error);
+        }
     };
 
     const crearInforme = async (informe:{}) => {
-        const data = await PostInforme(informe);
-        console.log("Datos desde el model: ", data);
-        return data;
+        try{
+            const data = await PostInforme(informe);
+            console.log("Datos desde el model: ", data);
+            return data;
+        }catch(error){
+            console.log("Error desde el model: ", error);
+        }
     };
 
     const actualizarInforme = async (id_informe:bigint ,informe:{}) => {
-        const data = await PutInforme(id_informe ,informe);
-        console.log("Datos desde el model: ", data);
-        return data;
+        try{
+            const data = await PutInforme(id_informe ,informe);
+            console.log("Datos desde el model: ", data);
+            return data;
+        }catch(error){
+            console.log("Error desde el model: ", error);
+        }
     };
+
+    const elimnarInforme = async (id_informe:bigint) => {
+        try{
+            const data = await DeleteInforme(id_informe);
+            console.log("Datos desde el model: ", data);
+            return data;
+        }catch(error){
+            console.log("Error desde el model: ", error);
+        }
+    }
 
     return {
         obtenerInformes,
         crearInforme,
         actualizarInforme,
+        elimnarInforme,
     };
 
 };

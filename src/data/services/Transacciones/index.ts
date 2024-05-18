@@ -1,1 +1,2 @@
-export { default as GetTransaccion } from './crudTransacciones'
+export * from './Transacciones'
+export * from './TransaccionActivoFijo'

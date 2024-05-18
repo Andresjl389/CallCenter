@@ -1,2 +1,6 @@
 export * from './Transacciones'
 export * from './Informe'
+export * from './Cliente'
+export * from './GestionCuentas'
+export * from './Presupuestos'
+export * from './Proveedor'
