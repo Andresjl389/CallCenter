@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useServices } from "../../../hooks";
 import { CardInfoComponent, HeaderComponent, SeccionComponent } from "../../components";
-import { useTransaccionActivoFijoModel } from "../../../domain/models";
+import { useProveedorModel } from "../../../domain/models";
 
 
-const TransaccionActivoFijoScreen = () => {
+const ProveedorScreen = () => {
     
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [borrar, setBorrar] = useState(false);
@@ -12,13 +12,15 @@ const TransaccionActivoFijoScreen = () => {
   const [disable, setDisable] = useState(false);
   const [idCuentas, setIdCuentas] = useState<bigint>();
 
-  const { eliminarTransaccionActivoFijo } = useTransaccionActivoFijoModel();
+  const { eliminarProveedor } = useProveedorModel();
 
   const {
     loading,
-    transaccionActivoFijoData: activoFijo,
+    proveedorData: proveedor,
+    cuentasPagarData: cuenta
   } = useServices({
-    loadTransaccionActivoFijo: true,
+    loadCuentasPorPagar: true,
+    loadProveedores: true,
   });
 
   const toggleSidebar = () => {
@@ -34,11 +36,12 @@ const TransaccionActivoFijoScreen = () => {
     try {
       console.log("HOLA: ", id);
       setIdCuentas(id);
-      await eliminarTransaccionActivoFijo(id);
-      alert("Activo fijo eliminado exitosamente");
+      await eliminarProveedor(id);
+      alert("Proveedor eliminado exitosamente");
       window.location.reload();
     } catch (error) {
       console.log(error);
+      alert(error)
     } finally {
       setDisable(false);
     }
@@ -75,8 +78,8 @@ const TransaccionActivoFijoScreen = () => {
       >
         <div>
           <SeccionComponent
-            name="Transacción activo fijo"
-            link="/TransaccionActivoFijo/añadir"
+            name="Proveedor"
+            link="/Proveedor/añadir"
             onDelete={() => setBorrar(true)}
             onUpdate={() => setActualizar(true)}
           />
@@ -91,39 +94,43 @@ const TransaccionActivoFijoScreen = () => {
             justifyContent: "center",
           }}
         >
-          {activoFijo?.map((item) => {
+          {proveedor?.map((item) => {
+            const cuentaEncontrada = cuenta?.find(
+              (cuentas) =>
+                cuentas.id_cuenta_pp === item.id_cuenta_pp
+            );
             return (
               <CardInfoComponent
                 borrar={borrar}
                 actualizar={actualizar}
                 onDelete={() => {
-                  deleteCliente(item.id_activo_fijo);
+                  deleteCliente(item.id_proveedor);
                 }}
-                onUpdate={() => console.log("actializar: ", item.id_activo_fijo)}
+                onUpdate={() => console.log("actializar: ", item.id_proveedor)}
               >
                 <div style={{ display: "flex" }}>
-                  <p style={styles.p}>{item.id_activo_fijo?.toString()}</p>
-                  <p style={styles.p}>{item.nombre}</p>
+                  <p style={styles.p}>{item.id_proveedor?.toString()}</p>
+                  <p style={styles.p}>{item.nombre?.toString()}</p>
                 </div>
                 <p style={styles.p}>
-                  <span style={styles.span}>Fecha adquirido:</span>{" "}
-                  {item.fecha_adquirido?.toString()}
+                  <span style={styles.span}>Condiciones de pago:</span>{" "}
+                  {item.condiciones_pago?.toString()}
                 </p>
                 <p style={styles.p}>
-                  <span style={styles.span}>Metodo depreciación: </span>
-                  {item.metodo_depreciacion}
+                  <span style={styles.span}>Dirección: </span>
+                  {item.direccion?.toString()}
                 </p>
                 <p style={styles.p}>
-                  <span style={styles.span}>Valor original: </span>
-                  {item.valor_original?.toString()}
+                  <span style={styles.span}>Telefono: </span>
+                  {item.telefono?.toString()}
                 </p>
                 <p style={styles.p}>
-                  <span style={styles.span}>Estado: </span>
-                  {item.estado_actual ? 'Activo' : 'Inactivo'}
+                  <span style={styles.span}>Tipo proveedor: </span>
+                  {item.tipo_proveedor?.toString()}
                 </p>
                 <p style={styles.p}>
-                  <span style={styles.span}>Vida util: </span>
-                  {item.vida_util?.toString()}
+                  <span style={styles.span}>Monto pendiente: </span>
+                  {cuentaEncontrada?.monto_pendiente?.toString()}
                 </p>
               </CardInfoComponent>
             );
@@ -143,4 +150,4 @@ const styles = {
     },
   };
   
-export default TransaccionActivoFijoScreen;
+export default ProveedorScreen;

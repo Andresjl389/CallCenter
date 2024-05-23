@@ -1,1 +1,2 @@
-export { default as CLienteScreen } from "./Cliente";
+export { default as CrearCliente } from "./CrearCliente";
+export { default as Clientes } from './Cliente'

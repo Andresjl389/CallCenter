@@ -1,5 +1,5 @@
 export interface InformeType {
-    id_informe?: bigint;
+    id_informe: bigint;
     nombre_informe?:string;
     fecha?: Date;
     tipo_informe?: string;

@@ -1,1 +1,1 @@
-export { default as useGetTransaccionModel } from './TransaccionModel'
+export { default as useTransaccionModel } from './TransaccionModel'

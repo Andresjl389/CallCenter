@@ -1,5 +1,5 @@
 export interface ProveedorType {
-    id_proveedor?: bigint;
+    id_proveedor: bigint;
     nombre?: string;
     direccion?: string;
     telefono?: bigint;

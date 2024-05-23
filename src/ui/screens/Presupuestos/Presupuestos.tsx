@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useServices } from "../../../hooks";
 import { CardInfoComponent, HeaderComponent, SeccionComponent } from "../../components";
-import { useTransaccionActivoFijoModel } from "../../../domain/models";
+import { useCuentasPorPagarModel, usePresupuestosModel } from "../../../domain/models";
 
 
-const TransaccionActivoFijoScreen = () => {
+const PresupuestosScreen = () => {
     
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [borrar, setBorrar] = useState(false);
@@ -12,13 +12,13 @@ const TransaccionActivoFijoScreen = () => {
   const [disable, setDisable] = useState(false);
   const [idCuentas, setIdCuentas] = useState<bigint>();
 
-  const { eliminarTransaccionActivoFijo } = useTransaccionActivoFijoModel();
+  const { eliminarPresupuesto } = usePresupuestosModel();
 
   const {
     loading,
-    transaccionActivoFijoData: activoFijo,
+    presupuestosData: presupuesto,
   } = useServices({
-    loadTransaccionActivoFijo: true,
+    loadPresupuestos: true,
   });
 
   const toggleSidebar = () => {
@@ -34,8 +34,8 @@ const TransaccionActivoFijoScreen = () => {
     try {
       console.log("HOLA: ", id);
       setIdCuentas(id);
-      await eliminarTransaccionActivoFijo(id);
-      alert("Activo fijo eliminado exitosamente");
+      await eliminarPresupuesto(id);
+      alert("Presupuesto eliminado exitosamente");
       window.location.reload();
     } catch (error) {
       console.log(error);
@@ -75,8 +75,8 @@ const TransaccionActivoFijoScreen = () => {
       >
         <div>
           <SeccionComponent
-            name="Transacción activo fijo"
-            link="/TransaccionActivoFijo/añadir"
+            name="Presupuestos"
+            link="/Presupuestos/añadir"
             onDelete={() => setBorrar(true)}
             onUpdate={() => setActualizar(true)}
           />
@@ -91,39 +91,27 @@ const TransaccionActivoFijoScreen = () => {
             justifyContent: "center",
           }}
         >
-          {activoFijo?.map((item) => {
+          {presupuesto?.map((item) => {
             return (
               <CardInfoComponent
                 borrar={borrar}
                 actualizar={actualizar}
                 onDelete={() => {
-                  deleteCliente(item.id_activo_fijo);
+                  deleteCliente(item.id_presupuesto);
                 }}
-                onUpdate={() => console.log("actializar: ", item.id_activo_fijo)}
+                onUpdate={() => console.log("actializar: ", item.id_presupuesto)}
               >
                 <div style={{ display: "flex" }}>
-                  <p style={styles.p}>{item.id_activo_fijo?.toString()}</p>
-                  <p style={styles.p}>{item.nombre}</p>
+                  <p style={styles.p}>{item.id_presupuesto?.toString()}</p>
+                  <p style={styles.p}>{item.año_fiscal?.toString()}</p>
                 </div>
                 <p style={styles.p}>
-                  <span style={styles.span}>Fecha adquirido:</span>{" "}
-                  {item.fecha_adquirido?.toString()}
+                  <span style={styles.span}>Cantidad asignada:</span>{" "}
+                  {item.cantidad_asignada?.toString()}
                 </p>
                 <p style={styles.p}>
-                  <span style={styles.span}>Metodo depreciación: </span>
-                  {item.metodo_depreciacion}
-                </p>
-                <p style={styles.p}>
-                  <span style={styles.span}>Valor original: </span>
-                  {item.valor_original?.toString()}
-                </p>
-                <p style={styles.p}>
-                  <span style={styles.span}>Estado: </span>
-                  {item.estado_actual ? 'Activo' : 'Inactivo'}
-                </p>
-                <p style={styles.p}>
-                  <span style={styles.span}>Vida util: </span>
-                  {item.vida_util?.toString()}
+                  <span style={styles.span}>Cantidad gastada: </span>
+                  {item.cantidad_gastada?.toString()}
                 </p>
               </CardInfoComponent>
             );
@@ -143,4 +131,4 @@ const styles = {
     },
   };
   
-export default TransaccionActivoFijoScreen;
+export default PresupuestosScreen;

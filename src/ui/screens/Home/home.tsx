@@ -5,8 +5,7 @@ import {
   SideBarComponent,
   TableComponent,
 } from "../../components";
-import MenuIcon from "@mui/icons-material/Menu";
-import { useGetTransaccionModel } from "../../../domain/models";
+import { useTransaccionModel } from "../../../domain/models";
 import { TransaccionesType } from "../../../domain/interfaces";
 
 const HomeScreen = () => {
@@ -20,7 +19,7 @@ const HomeScreen = () => {
     return sidebarCollapsed ? "220px" : "80px";
   };
 
-  const { obtenerTransacciones } = useGetTransaccionModel();
+  const { obtenerTransacciones } = useTransaccionModel();
 
   const handleTransacciones = async () => {
     const data = await obtenerTransacciones();
@@ -50,7 +49,7 @@ const HomeScreen = () => {
             <>
               <TableRow>
                 <TableCell component="th" scope="row">
-                  {item.id_transaccion}
+                  {item.id_transaccion.toString()}
                 </TableCell>
                 <TableCell>{item.fecha}</TableCell>
                 <TableCell>{item.monto}</TableCell>

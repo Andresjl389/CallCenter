@@ -10,8 +10,8 @@ const GetTransaccionActivoFijo = async () => {
         headers,
       }
     );
-    console.log(response.data.transacciones);
-    return response.data.transacciones;
+    console.log(response.data.transaccionActivoFijo);
+    return response.data.transaccionActivoFijo;
   } catch (error) {
     console.log("Error desde el service: ", error);
   }

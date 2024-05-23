@@ -7,8 +7,8 @@ const GetPresupuestos = async() => {
         const response = await axios.get(`${Efetch.BACK_URL}/presupuesto/obtener`, {
             headers,
           });
-        console.log(response.data.presupuestos);
-        return response.data.presupuestos;
+        console.log(response.data.presupuesto);
+        return response.data.presupuesto;
     } catch (error) {
         console.log("Error desde el service: ", error);
     }

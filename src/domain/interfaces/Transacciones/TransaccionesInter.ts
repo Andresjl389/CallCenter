@@ -1,5 +1,5 @@
 export interface TransaccionesType {
-    id_transaccion?: string;
+    id_transaccion: bigint;
     fecha?: string;
     monto?: string;
     tipo_transaccion?: string;

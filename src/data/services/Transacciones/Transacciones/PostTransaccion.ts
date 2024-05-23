@@ -10,6 +10,7 @@ const PostTransaccion = async(data:{}) => {
             { headers }
         );
         console.log(response);
+        return response.data;
     } catch (error) {
         console.log('Error desde el services: ',error);
     }

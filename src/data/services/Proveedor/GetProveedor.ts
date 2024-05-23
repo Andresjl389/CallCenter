@@ -7,8 +7,8 @@ const GetProveedor = async() => {
         const response = await axios.get(`${Efetch.BACK_URL}/proveedor/obtener`, {
             headers,
           });
-        console.log(response.data.proveedor);
-        return response.data.proveedor;
+        console.log(response.data.proveedores);
+        return response.data.proveedores;
     } catch (error) {
         console.log("Error desde el service: ", error);
     }

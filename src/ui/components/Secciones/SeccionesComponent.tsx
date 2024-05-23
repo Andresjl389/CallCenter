@@ -5,25 +5,28 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import UpgradeIcon from "@mui/icons-material/Upgrade";
 
 type Props = {
-    name: string
+  name: string;
+  link: string;
+  onDelete?: () => void;
+  onUpdate?: () => void;
 };
 
-const SeccionComponent = ({name}: Props) => {
+const SeccionComponent = ({ name, link, onDelete, onUpdate }: Props) => {
   return (
     <div style={styles.container}>
       <p style={{ fontWeight: 500, margin: 0 }}>Secciones</p>
-      <ItemComponent to="/Informe/añadir">
-              <AddIcon sx={{ fontSize: 20 }} />
-              <ListItemText secondary={`Añadir ${name}`} />
-            </ItemComponent>
-            <ItemComponent to="/">
-              <UpgradeIcon sx={{ fontSize: 20 }} />
-              <ListItemText secondary={`Actualizar ${name}`} />
-            </ItemComponent>
-            <ItemComponent to="/">
-              <DeleteIcon sx={{ fontSize: 20 }} />
-              <ListItemText secondary={`Eliminar ${name}`} />
-            </ItemComponent>
+      <ItemComponent to={link}>
+        <AddIcon sx={{ fontSize: 20 }} />
+        <ListItemText secondary={`Añadir ${name}`} />
+      </ItemComponent>
+      <ItemComponent to="" onClick={onUpdate}>
+        <UpgradeIcon sx={{ fontSize: 20 }} />
+        <ListItemText secondary={`Actualizar ${name}`} />
+      </ItemComponent>
+      <ItemComponent to='' onClick={onDelete}>
+        <DeleteIcon sx={{ fontSize: 20 }}  />
+        <ListItemText secondary={`Eliminar ${name}`} />
+      </ItemComponent>
     </div>
   );
 };

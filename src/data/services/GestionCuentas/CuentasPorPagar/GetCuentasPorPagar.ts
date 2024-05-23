@@ -10,8 +10,8 @@ const GetCuentasPorPagar = async () => {
         headers,
       }
     );
-    console.log(response.data.cuentasPorPagar);
-    return response.data.cuentasPorPagar;
+    console.log(response.data.cuenta);
+    return response.data.cuenta;
   } catch (error) {
     console.log("Error desde el service: ", error);
   }

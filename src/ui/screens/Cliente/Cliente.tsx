@@ -1,131 +1,118 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import { HeaderComponent, FormInputComponent } from "../../components";
-import { useInformeModel } from "../../../domain/models/Informe";
-import { Button } from "@mui/material";
-import { set } from "react-hook-form";
+import { useEffect, useState } from "react";
+import { HeaderComponent, SeccionComponent } from "../../components";
+import { CardInfoComponent } from "../../components/Cards/CardInfo";
+import { useClienteModel } from "../../../domain/models";
+import { ClienteType } from "../../../domain/interfaces";
 
-const Cliente = () => {
+const Clientes = () => {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
-  const [idCliente, setIdCliente] = useState("");
-  const [nombreCliente, setNombreCliente] = useState("");
-  const [direccionCliente, setDireccionCliente] = useState("");
-  const [emailCliente, setEmailCliente] = useState("");
-  const [emailError, setEmailError] = useState("");
-
+  const [cliente, setCliente] = useState<ClienteType[]>();
+  const [borrar, setBorrar] = useState(false);
+  const [actualizar, setActualizar] = useState(false);
+  const [idCliente, setIdCliente] = useState<bigint>();
+  const [disable, setDisable] = useState(false);
+  const { obtenerClientes, elimnarCliente } = useClienteModel();
   const toggleSidebar = () => {
     setSidebarCollapsed(!sidebarCollapsed);
   };
-
   const handleStyle = () => {
     return sidebarCollapsed ? "220px" : "80px";
   };
 
-  const { crearInforme } = useInformeModel();
-
-  const validateEmail = (emailCliente: string) => {
-    const regex =
-      /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return regex.test(emailCliente);
-  };
-
-  const createCliente = async () => {
-    if (!validateEmail(emailCliente)) {
-      setEmailError("Ingrese un email valido");
-      return;
-    }
-    setEmailError("");
-    const data = {
-      id_cliente: idCliente,
-      nombre: nombreCliente,
-      direccion: direccionCliente,
-      correo: emailCliente,
-    };
+  const handleClientes = async () => {
+    const data = await obtenerClientes();
     console.log(data);
-    await crearInforme(data);
+    setCliente(data);
   };
+  useEffect(() => {
+    handleClientes();
+  }, []);
 
-  const Container = styled.div`
-    grid-template-rows: auto 1fr;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
-    width: 700px;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    background-color: #ffffff;
-    align-self: center;
-    margin-top: 50px;
-  `;
-
-  const Title = styled.div`
-    grid-row: 1; /* Coloca el título en la primera fila */
-    grid-column: 1 / -1; /* Ocupa todas las columnas disponibles */
-    text-align: center; /* Centra el texto horizontalmente */
-    font-weight: bold;
-    font-size: 20px;
-    margin-bottom: 20px; /* Agrega espacio debajo del título */
-  `;
-
-  const ErrorText = styled.div`
-    color: red;
-    font-size: 12px;
-    margin-top: 5px;
-  `;
+  const deleteCliente = async (id: bigint) => {
+    setDisable(true);
+    try{
+      console.log("HOLA: ",id)
+      setIdCliente(id);
+      await elimnarCliente(id);
+      alert("Cliente eliminado exitosamente"); 
+      window.location.reload(); 
+    }catch (error) {
+      console.log(error);
+    }finally{
+      setDisable(false)
+    }
+  };
 
   return (
     <>
       <HeaderComponent
-        toggleSidebar={toggleSidebar}
         sidebarCollapsed={sidebarCollapsed}
+        toggleSidebar={toggleSidebar}
       />
       <div
         style={{
           display: "flex",
           marginLeft: handleStyle(),
-          flexDirection: "column",
+          flexDirection: "row",
         }}
       >
-        <Container>
-          <Title>Registro Cliente</Title>
-          <FormInputComponent
-            label="ID del CLiente"
-            name="id_cliente"
-            type="number"
-            // onChange={(event) => setIdCliente(event.target.value)}
-            // value={idCliente}
+        <div>
+          <SeccionComponent
+            name="Clientes"
+            link="/cliente/añadir"
+            onDelete={() => setBorrar(true)}
+            onUpdate={() => setActualizar(true)}
           />
-          <FormInputComponent
-            label="Nombre Cliente"
-            name="nombre"
-            // onChange={(event) => setNombreCliente(event.target.value)}
-            // value={nombreCliente}
-          />
-          <FormInputComponent
-            label="Direccion"
-            name="direccion"
-            // onChange={(event) => setDireccionCliente(event.target.value)}
-            // value={direccionCliente}
-          />
-          <FormInputComponent
-            label="Email"
-            name="correo"
-            // onChange={(event) => setEmailCliente(event.target.value)}
-            // value={emailCliente}
-          />
-          {emailError && <ErrorText>{emailError}</ErrorText>}
-          <Button
-            variant="contained"
-            style={{ gridColumn: "1/-1", width: "50%", margin: "auto" }}
-            onClick={createCliente}
-          >
-            Enviar
-          </Button>
-        </Container>
+        </div>
+        <div
+          style={{
+            background: "",
+            width: "80%",
+            marginLeft: 20,
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "center",
+          }}
+        >
+          {cliente?.map((item) => (
+            <>
+              <CardInfoComponent
+                borrar={borrar}
+                actualizar={actualizar}
+                onDelete={() => {
+                  deleteCliente(item.id_cliente)
+                  handleClientes()
+                }}
+                onUpdate={() => console.log('actializar: ',item.id_cliente)}
+              >
+                <div style={{ display: "flex" }}>
+                  <p style={styles.p}>{item.id_cliente?.toString()}</p>
+                  <p style={styles.p}>{item.nombre?.toString()}</p>
+                </div>
+                <p style={styles.p}>
+                  <span style={styles.span}>Dirección:</span>{" "}
+                  {item.direccion?.toString()}
+                </p>
+                <p style={styles.p}>
+                  <span style={styles.span}>Correo: </span>
+                  {item.correo?.toString()}
+                </p>
+              </CardInfoComponent>
+            </>
+          ))}
+        </div>
       </div>
     </>
   );
 };
 
-export default Cliente;
+const styles = {
+  p: {
+    margin: "2px 5px 2px 5px",
+  },
+  span: {
+    fontWeight: 700,
+  },
+};
+
+export default Clientes;

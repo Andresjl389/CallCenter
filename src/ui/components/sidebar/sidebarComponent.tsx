@@ -27,15 +27,15 @@ const SideBarComponent = ({ collapsed }: Props) => {
         <PointOfSaleIcon sx={{ fontSize: 25 }} />
         <ListItemText primary="Transacciones" />
       </ItemComponent>
-      <ItemComponent to="">
+      <ItemComponent to="/Cliente">
         <PersonIcon sx={{ fontSize: 25 }} />
         <ListItemText primary="Cliente" />
       </ItemComponent>
-      <ItemComponent to="">
+      <ItemComponent to="/CuentasPorCobrar">
         <AccountBalanceWalletIcon sx={{ fontSize: 25 }} />
         <ListItemText primary="Cuenta por cobrar" />
       </ItemComponent>
-      <ItemComponent to="">
+      <ItemComponent to="/CuentasPorPagar">
         <PaymentIcon sx={{ fontSize: 25 }} />
         <ListItemText primary="Cuenta por pagar" />
       </ItemComponent>
@@ -43,11 +43,11 @@ const SideBarComponent = ({ collapsed }: Props) => {
         <TextSnippetIcon sx={{ fontSize: 25 }} />
         <ListItemText primary="Informe" />
       </ItemComponent>
-      <ItemComponent to="">
+      <ItemComponent to="/Presupuestos">
         <AttachMoneyIcon sx={{ fontSize: 25 }} />
         <ListItemText primary="Presupuesto" />
       </ItemComponent>
-      <ItemComponent to="">
+      <ItemComponent to="/Proveedor">
         <HailIcon sx={{ fontSize: 25 }} />
         <ListItemText primary="Proveedor" />
       </ItemComponent>

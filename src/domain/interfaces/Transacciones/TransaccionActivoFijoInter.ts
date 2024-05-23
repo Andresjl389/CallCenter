@@ -1,5 +1,5 @@
 export interface TransaccionActivoFijo {
-    id_activo_fijo?: bigint;
+    id_activo_fijo: bigint;
     nombre?: string;
     valor_original?: bigint;
     fecha_adquirido?: Date;

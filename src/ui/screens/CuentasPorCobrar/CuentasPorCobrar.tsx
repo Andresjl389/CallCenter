@@ -1,17 +1,31 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import { HeaderComponent, FormInputComponent } from "../../components";
-import { useInformeModel } from "../../../domain/models/Informe";
-import { Button } from "@mui/material";
-import { set } from "react-hook-form";
+import { useState } from "react";
+import {
+  CardInfoComponent,
+  HeaderComponent,
+  SeccionComponent,
+} from "../../components";
+import { useCuentasPorCobrarModel } from "../../../domain/models";
+import { useServices } from "../../../hooks";
 
-const CuentasPorCobrar = () => {
+const CuentasPorCobrarScreen = () => {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
-  const [idCliente, setIdCliente] = useState("");
-  const [idCuentaPc, setIdCuentaPc] = useState("");
-  const [montoPendiente, setMontoPendiente] = useState("");
-  const [idCuentaPc, setIdCuentaPc] = useState("");
-  const [idCuentaPc, setIdCuentaPc] = useState("");
+  const [borrar, setBorrar] = useState(false);
+  const [actualizar, setActualizar] = useState(false);
+  const [disable, setDisable] = useState(false);
+  const [idCuentas, setIdCuentas] = useState<bigint>();
+
+  const { eliminarCuentasPorCobrar } = useCuentasPorCobrarModel();
+
+  const {
+    loading,
+    cuentasCobrarData: cuenta,
+    clienteData: cliente,
+    transaccionData: transaccion,
+  } = useServices({
+    loadCuentasPorCobrar: true,
+    loadClientes: true,
+    loadTransacciones: true,
+  });
 
   const toggleSidebar = () => {
     setSidebarCollapsed(!sidebarCollapsed);
@@ -21,97 +35,121 @@ const CuentasPorCobrar = () => {
     return sidebarCollapsed ? "220px" : "80px";
   };
 
-  const { crearInforme } = useInformeModel();
-
-  const createCuentaPorCobrar = async () => {
-    const data = {
-      id_cuenta_pc: idCuentaPc,
-      monto_pendiente: montoPendiente,
-    };
-    console.log(data);
-    await crearInforme(data);
+  const deleteCliente = async (id: bigint) => {
+    setDisable(true);
+    try {
+      console.log("HOLA: ", id);
+      setIdCuentas(id);
+      await eliminarCuentasPorCobrar(id);
+      alert("Cuenta eliminada exitosamente");
+      window.location.reload();
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setDisable(false);
+    }
   };
 
-  const Container = styled.div`
-    grid-template-rows: auto 1fr;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
-    width: 700px;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    background-color: #ffffff;
-    align-self: center;
-    margin-top: 50px;
-  `;
-
-  const Title = styled.div`
-    grid-row: 1; /* Coloca el título en la primera fila */
-    grid-column: 1 / -1; /* Ocupa todas las columnas disponibles */
-    text-align: center; /* Centra el texto horizontalmente */
-    font-weight: bold;
-    font-size: 20px;
-    margin-bottom: 20px; /* Agrega espacio debajo del título */
-  `;
-
-  const ErrorText = styled.div`
-    color: red;
-    font-size: 12px;
-    margin-top: 5px;
-  `;
+  if (loading) {
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+        }}
+      >
+        <h1>Cargando...</h1>
+      </div>
+    );
+  }
 
   return (
     <>
       <HeaderComponent
-        toggleSidebar={toggleSidebar}
         sidebarCollapsed={sidebarCollapsed}
+        toggleSidebar={toggleSidebar}
       />
+
       <div
         style={{
           display: "flex",
           marginLeft: handleStyle(),
-          flexDirection: "column",
+          flexDirection: "row",
         }}
       >
-        <Container>
-          <Title>Registro Cliente</Title>
-          <FormInputComponent
-            label="ID del CLiente"
-            name="id_cliente"
-            type="number"
-            // onChange={(event) => setIdCliente(event.target.value)}
-            // value={idCliente}
+        <div>
+          <SeccionComponent
+            name="Cuentas por cobrar"
+            link="/CuentasPorCobrar/añadir"
+            onDelete={() => setBorrar(true)}
+            onUpdate={() => setActualizar(true)}
           />
-          <FormInputComponent
-            label="Nombre Cliente"
-            name="nombre"
-            // onChange={(event) => setNombreCliente(event.target.value)}
-            // value={nombreCliente}
-          />
-          <FormInputComponent
-            label="Direccion"
-            name="direccion"
-            // onChange={(event) => setDireccionCliente(event.target.value)}
-            // value={direccionCliente}
-          />
-          <FormInputComponent
-            label="Email"
-            name="correo"
-            // onChange={(event) => setEmailCliente(event.target.value)}
-            // value={emailCliente}
-          />
-          {/* {emailError && <ErrorText>{emailError}</ErrorText>} */}
-          <Button
-            variant="contained"
-            style={{ gridColumn: "1/-1", width: "50%", margin: "auto" }}
-          >
-            Enviar
-          </Button>
-        </Container>
+        </div>
+        <div
+          style={{
+            background: "",
+            width: "80%",
+            marginLeft: 20,
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "center",
+          }}
+        >
+          {cuenta?.map((item) => {
+            const transaccionEncontrada = transaccion?.find(
+              (transaction) =>
+                transaction.id_transaccion === item.id_transaccion
+            );
+            const clienteEncontrado = cliente?.find(
+                (client) => client.id_cliente === item.id_cliente
+            )
+            return (
+              <CardInfoComponent
+                borrar={borrar}
+                actualizar={actualizar}
+                onDelete={() => {
+                  deleteCliente(item.id_cuenta_pc);
+                }}
+                onUpdate={() => console.log("actializar: ", item.id_cuenta_pc)}
+              >
+                <div style={{ display: "flex" }}>
+                  <p style={styles.p}>{item.id_cuenta_pc?.toString()}</p>
+                  <p style={styles.p}>{item.monto_pendiente?.toString()}</p>
+                </div>
+                <p style={styles.p}>
+                  <span style={styles.span}>Fecha vencimiento:</span>{" "}
+                  {item.fecha_vencimiento?.toString()}
+                </p>
+                <p style={styles.p}>
+                  <span style={styles.span}>Monto pendiente: </span>
+                  {item.monto_pendiente?.toString()}
+                </p>
+                <p style={styles.p}>
+                  <span style={styles.span}>Cliente: </span>
+                  {clienteEncontrado?.nombre}
+                </p>
+                <p style={styles.p}>
+                  <span style={styles.span}>Transacción: </span>
+                  {transaccionEncontrada?.tipo_transaccion}
+                </p>
+              </CardInfoComponent>
+            );
+          })}
+        </div>
       </div>
     </>
   );
 };
 
-export default CuentasPorCobrar;
+const styles = {
+  p: {
+    margin: "2px 5px 2px 5px",
+  },
+  span: {
+    fontWeight: 700,
+  },
+};
+
+export default CuentasPorCobrarScreen;

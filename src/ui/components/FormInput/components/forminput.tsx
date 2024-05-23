@@ -63,7 +63,6 @@ const FormInputComponent: React.FC<FormInputComponentProps> = ({
   options,
 }) => {
   const [touched, setTouched] = useState(false);
-  const [isAccordionOpen, setIsAccordionOpen] = useState(false);
 
   const handleBlur = () => {
     setTouched(true);

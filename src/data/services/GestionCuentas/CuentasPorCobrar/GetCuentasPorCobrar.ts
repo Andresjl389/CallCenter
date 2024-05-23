@@ -7,8 +7,8 @@ const GetCuentasPorCobrar = async () => {
         const response = await axios.get(`${Efetch.BACK_URL}/gestionCuentas/CuentasPorCobrar/obtener`, {
             headers,
           });
-        console.log(response.data.cuentasPorCobrar);
-        return response.data.cuentasPorCobrar;
+        console.log(response.data.cuenta);
+        return response.data.cuenta;
     } catch (error) {
         console.log("Error desde el service: ", error);
     }

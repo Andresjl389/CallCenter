@@ -8,8 +8,8 @@ const GetClientes = async() => {
         const response = await axios.get(`${Efetch.BACK_URL}/cliente/obtener`, {
             headers,
           });
-        console.log(response.data.clientes);
-        return response.data.clientes;
+        console.log(response.data.cliente);
+        return response.data.cliente;
     } catch (error) {
         console.log("Error desde el service: ", error);
     }

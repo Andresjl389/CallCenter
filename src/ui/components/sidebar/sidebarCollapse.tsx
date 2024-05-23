@@ -56,13 +56,13 @@ const SideCollapseComponent = ({}: Props) => {
           </Tooltip>
         </ItemComponent>
 
-        <ItemComponent to="">
+        <ItemComponent to="/Presupuestos">
           <Tooltip title="Presupuesto" placement="right" arrow>
             <AttachMoneyIcon sx={{ fontSize: 25 }} />
           </Tooltip>
         </ItemComponent>
 
-        <ItemComponent to="">
+        <ItemComponent to="/Proveedor">
           <Tooltip title="Proveedor" placement="right" arrow>
             <HailIcon sx={{ fontSize: 25 }} />
           </Tooltip>
